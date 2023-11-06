@@ -1,11 +1,12 @@
+import CategoriaDAO from "../persistencia/categoriaDAO.js";
+
 export default class Categoria{
     #codigo;
-    #categoria;
+    #tipoProduto;
     #tamanho;
 
-    constructor(codigo, categoria, tamanho){
-        this.#codigo = codigo;
-        this.#categoria = categoria;
+    constructor(tipoProduto, tamanho){
+        this.#tipoProduto = tipoProduto;
         this.#tamanho = tamanho;    
     }
 
@@ -17,12 +18,12 @@ export default class Categoria{
         this.#codigo = novoCodigo;
     }
 
-    get categoria(){
-        return this.#categoria;
+    get tipoProduto(){
+        return this.#tipoProduto;
     }
 
-    set categoria(novaCategoria){
-        this.#categoria = novaCategoria;
+    set tipoProduto(novatipoProduto){
+        this.#tipoProduto = novatipoProduto;
     }
 
     get tamanho(){
@@ -35,18 +36,19 @@ export default class Categoria{
 
     toJSON(){
         return{
-            categoria: this.#categoria,
+            tipoProduto: this.#tipoProduto,
             tamanho: this.#tamanho
         }
     }
 
     toString(){
-        return "categoria" + this.#categoria + '\n' + 
+        return "tipoProduto" + this.#tipoProduto + '\n' + 
                 "tamanho " + this.#tamanho;
     }
 
     async gravar(){
-        
+        const categoria = new CategoriaDAO();
+        await categoria.gravar(this)
     }
 
     async excluir(){

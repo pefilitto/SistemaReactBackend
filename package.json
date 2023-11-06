@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/pefilitto/SistemaReactBackend/issues"
   },
-  "homepage": "https://github.com/pefilitto/SistemaReactBackend#readme"
+  "homepage": "https://github.com/pefilitto/SistemaReactBackend#readme",
+  "dependencies": {
+    "mysql2": "^3.6.3"
+  }
 }
