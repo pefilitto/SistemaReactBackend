@@ -1,18 +1,28 @@
+import ProdutoDAO from "../persistencia/produtoDAO.js";
+
 export default class Produto{
     #codigo
     #nome;
     #preco;
     #qtdEstoque;
-    #categoria;
+    #codigoCategoria;
     #descricao;
 
-    constructor(codigo, nome, preco, qtdEstoque, categoria={}, descricao){
+    constructor(codigo, nome, preco, qtdEstoque, codigoCategoria, descricao){
         this.#codigo = codigo;
         this.#nome = nome;
         this.#preco = preco;
         this.#qtdEstoque = qtdEstoque;
-        this.#categoria = categoria;
+        this.#codigoCategoria = codigoCategoria;
         this.#descricao = descricao;
+    }
+
+    get codigoCategoria(){
+        return this.#codigoCategoria;
+    }
+
+    set codigoCategoria(novoCodigoCategoria){
+        this.#codigoCategoria = novoCodigoCategoria;
     }
 
     get codigo(){
@@ -47,14 +57,6 @@ export default class Produto{
         this.#qtdEstoque = novaQtdEstoque;
     }
 
-    get categoria(){
-        return this.#categoria;
-    }
-
-    set categoria(novaCategoria){
-        this.#categoria = novaCategoria;
-    }
-
     get descricao(){
         return this.#descricao;
     }
@@ -69,7 +71,7 @@ export default class Produto{
             nome: this.#nome,
             preco: this.#preco,
             qtdEstoque: this.#qtdEstoque,
-            categoria: this.#categoria.toJSON(),
+            codigoCategoria: this.#codigoCategoria,
             descricao: this.#descricao
         }
     }
@@ -79,23 +81,27 @@ export default class Produto{
                 "nome" + this.#nome + '\n' +
                 "preco" + this.#preco + '\n' +
                 "qtdEstoque" + this.#qtdEstoque + '\n' +
-                "categoria" + this.#categoria + '\n' +
+                "codigoCategoria" + this.#codigoCategoria + '\n' +
                 "descricao" + this.#descricao
     }
 
     async gravar(){
-
+        const produto = new ProdutoDAO();
+        await produto.gravar(this);
     }
 
     async excluir(){
-
+        const produto = new ProdutoDAO();
+        await produto.excluir(this);
     }
 
     async alterar(){
-
+        const produto = new ProdutoDAO();
+        await produto.alterar(this);
     }
 
-    async buscar(){
-
+    async buscar(termo){
+        const produto = new ProdutoDAO();
+        return await produto.buscar(termo);
     }
 }

@@ -5,7 +5,8 @@ export default class Categoria{
     #tipoProduto;
     #tamanho;
 
-    constructor(tipoProduto, tamanho){
+    constructor(codigo, tipoProduto, tamanho){
+        this.#codigo = codigo;
         this.#tipoProduto = tipoProduto;
         this.#tamanho = tamanho;    
     }
@@ -51,15 +52,18 @@ export default class Categoria{
         await categoria.gravar(this)
     }
 
-    async excluir(){
-
+    async excluir(codigoCategoria){
+        const categoria = new CategoriaDAO();
+        await categoria.excluir(this, codigoCategoria);
     }
 
     async alterar(){
-
+        const categoria = new CategoriaDAO();
+        await categoria.alterar(this);
     }
 
-    async buscar(){
-
+    async buscar(termo){
+        const categoria = new CategoriaDAO();
+        return await categoria.buscar(termo);
     }
 }
