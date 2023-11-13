@@ -67,7 +67,6 @@ export default class Produto{
 
     toJSON(){
         return {
-            codigo: this.#codigo,
             nome: this.#nome,
             preco: this.#preco,
             qtdEstoque: this.#qtdEstoque,
@@ -90,9 +89,9 @@ export default class Produto{
         await produto.gravar(this);
     }
 
-    async excluir(){
+    async excluir(codigoProduto){
         const produto = new ProdutoDAO();
-        await produto.excluir(this);
+        await produto.excluir(this, codigoProduto);
     }
 
     async alterar(){

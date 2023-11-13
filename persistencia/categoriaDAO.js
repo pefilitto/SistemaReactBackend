@@ -7,7 +7,8 @@ export default class CategoriaDAO{
             const sql = "INSERT INTO categoria (categoria, tamanho) VALUES (?, ?)" 
             const parametros = [categoria.tipoProduto, categoria.tamanho];
             const conexao = await conectar();
-            await conexao.execute(sql, parametros);
+            const retorno = await conexao.execute(sql, parametros);
+            categoria.codigo = retorno[0].insertId;
             global.poolConexoes.releaseConnection(conexao);
         }
     }
@@ -23,6 +24,7 @@ export default class CategoriaDAO{
     }
 
     async excluir(categoria, codigoCategoria){
+        console.log(categoria, codigoCategoria)
         if(categoria instanceof Categoria){
             const sql = "DELETE FROM categoria WHERE codigoCategoria = ?"
             const parametros = [codigoCategoria];
@@ -45,7 +47,7 @@ export default class CategoriaDAO{
         else{
             //Se nao consulta pela descricao
             if(parametroConsulta){
-                sql = "SELECT * FROM categoria WHERE tipoProduto like ?"
+                sql = "SELECT * FROM categoria WHERE categoria like ?"
                 parametros = ['%' + parametroConsulta + '%'];
             }
         }

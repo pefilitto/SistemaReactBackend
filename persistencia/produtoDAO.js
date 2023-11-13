@@ -14,15 +14,16 @@ export default class ProdutoDAO{
                 produto.descricao
             ];
             const conexao = await conectar();
-            await conexao.execute(sql, parametros);
+            const retorno = await conexao.execute(sql, parametros);
+            produto.codigo = retorno[0].insertId;
             global.poolConexoes.releaseConnection(conexao);
         }
     }
 
-    async excluir(produto){
+    async excluir(produto, codigoProduto){
         if(produto instanceof Produto){
             const sql = "DELETE FROM produto WHERE codigoProduto = ?";
-            const parametros = [produto.codigo];
+            const parametros = [codigoProduto];
             const conexao = await conectar();
             await conexao.execute(sql, parametros)
             global.poolConexoes.releaseConnection(conexao);
@@ -55,7 +56,7 @@ export default class ProdutoDAO{
         }
         else{
             sql = "SELECT * FROM produto WHERE nome = ?";
-            parametros = ['%' + termo + '%'];
+            parametros = [termo];
         }
 
         const conexao = await conectar();

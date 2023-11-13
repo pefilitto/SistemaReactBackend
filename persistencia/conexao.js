@@ -2,7 +2,7 @@ import mysql from 'mysql2/promise'
 
 export default async function conectar(){
     if(global.poolConexoes){
-        await global.poolConexoes.getConnection();
+        return await global.poolConexoes.getConnection();
     }
     else{
         const poolDeConexoes = mysql.createPool({

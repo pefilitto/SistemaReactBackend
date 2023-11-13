@@ -1,12 +1,10 @@
-import Produto from "./modelo/produto.js";
-import Categoria from "./modelo/categoria.js";
 import express  from "express"
 import cors from "cors"
 import rotaCateogoria from "./rotas/rotaCategoria.js";
+import rotaProduto from "./rotas/rotaProduto.js";
 
 
 const app = express()
-
 
 app.use(cors({origins:"*"}));
 
@@ -15,6 +13,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
 app.use("/categoria", rotaCateogoria);
+app.use("/produto", rotaProduto)
 
 app.listen(3000, "localhost",  () => {
     console.log("Servidor escutando em localhost : " + 3000);
