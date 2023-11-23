@@ -20,5 +20,18 @@ CREATE TABLE produto(
     CONSTRAINT fk_produto_categoria FOREIGN KEY (codigoCategoria) REFERENCES categoria(codigoCategoria)
 )
 
+CREATE TABLE cliente(
+    codigoCliente INT NOT NULL AUTO_INCREMENT,
+    cpf VARCHAR(50) NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    endereco VARCHAR(200) NOT NULL,
+    numero INT NOT NULL,
+    bairro VARCHAR(100) NOT NULL,
+    cidade VARCHAR(100) NOT NULL,
+    uf VARCHAR(3) NOT NULL,
+    cep VARCHAR(20) NOT NULL,
+    CONSTRAINT pk_cliente PRIMARY KEY (codigoCliente)
+)
+
 
 
