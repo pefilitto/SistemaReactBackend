@@ -17,14 +17,14 @@ export default class ControllerCliente{
 
             if(cpf && nome && endereco && numero && bairro && cidade && uf && cep){
                 const cliente = new Cliente(cpf, nome, endereco, numero, bairro, cidade, uf, cep);
-                /*cliente.buscar(cpf).then((lista) => {
+                cliente.buscarCPF(cpf).then((lista) => {
                     if(lista.length > 0){
                         res.status(400).json({
                             "status": false,
                             "mensagem": "Cliente já cadastrado"
                         })
                     }
-                    else*///{
+                    else{
                         cliente.gravar().then(() => {
                             res.status(200).json({
                                 "status": true,
@@ -37,8 +37,13 @@ export default class ControllerCliente{
                                 "mensagem": "Erro ao cadastrar cliente: " + e.message
                             })
                         })
-                    //}
-                //})
+                    }
+                }).catch((e) => {
+                    res.status(500).json({
+                        "status": false,
+                        "mensagem": "Erro ao consultar cliente para gravar: " + e.message
+                    })
+                })
             }
             else{
                 res.status(400).json({
@@ -104,14 +109,113 @@ export default class ControllerCliente{
     }
 
     excluir(req, res){
-
-    }
-
-    buscarCPF(req, res){
-
+        res.type("application/json");
+    
+        if(req.method === "DELETE"){
+            const cpf = req.params.cpf;
+    
+            const cliente = new Cliente(cpf); 
+    
+            cliente.buscarCPF(cpf).then((retorno) => {
+                if(retorno.length > 0){
+                    cliente.excluir().then(() => {
+                        res.status(200).json({
+                            "status": true,
+                            "mensagem": "Cliente excluído com sucesso"
+                        })
+                    }).catch((e) => {
+                        res.status(500).json({
+                            "status": false,
+                            "mensagem": "Erro ao excluir cliente: " + e.message
+                        })
+                    })
+                }
+                else{
+                    res.status(400).json({
+                        "status": false,
+                        "mensagem": "Cliente para exclusão não encontrado"
+                    })
+                }
+            }).catch((e) => {
+                res.status(500).json({
+                    "status": false,
+                    "mensagem": "Erro ao buscar cliente: " + e.message
+                })
+            })
+        }
     }
     
-    buscar(req, res){
 
+    buscarCPF(req, res){
+        res.type("application/json");
+    
+        if(req.method === "GET"){
+            const cpf = req.params.cpf;
+    
+            const cliente = new Cliente(cpf);
+    
+            cliente.buscarCPF(cpf).then((retorno) => {
+                if(retorno.length > 0){
+                    res.status(200).json({
+                        "status": true,
+                        "cliente": retorno
+                    });
+                } else {
+                    res.status(404).json({
+                        "status": false,
+                        "mensagem": "Cliente não encontrado"
+                    });
+                }
+            }).catch((e) => {
+                res.status(500).json({
+                    "status": false,
+                    "mensagem": "Erro ao buscar cliente: " + e.message
+                });
+            });
+        } else {
+            res.status(400).json({
+                "status": false,
+                "mensagem": "Requisição inválida"
+            });
+        }
     }
+    
+    
+    buscarPeloNome(req, res) {
+        res.type("application/json");
+    
+        if (req.method === "GET") {
+            let parametro = "";
+
+            const { nome } = req.query; 
+    
+            const cliente = new Cliente(nome); 
+    
+            cliente.buscarPeloNome(nome).then((clienteEncontrado) => {
+                if (clienteEncontrado.length > 0) {
+                    res.status(200).json({
+                        "status": true,
+                        "cliente": clienteEncontrado
+                    });
+                } else {
+                    res.status(404).json({
+                        "status": false,
+                        "mensagem": "Cliente não encontrado"
+                    });
+                }
+            }).catch((e) => {
+                res.status(500).json({
+                    "status": false,
+                    "mensagem": "Erro ao buscar cliente: " + e.message
+                });
+            });
+    
+        } else {
+            res.status(400).json({
+                "status": false,
+                "mensagem": "Por gentileza, utilize o método GET para buscar um cliente"
+            });
+        }
+    }
+    
 }

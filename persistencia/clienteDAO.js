@@ -1,9 +1,9 @@
 import Cliente from "../modelo/cliente.js";
 import conectar from "./conexao.js";
 
-export default class ClienteDAO{
-    async gravar(cliente){
-        if(cliente instanceof Cliente){
+export default class ClienteDAO {
+    async gravar(cliente) {
+        if (cliente instanceof Cliente) {
             const sql = "INSERT INTO cliente (cpf, nome, endereco, numero, bairro, cidade, uf, cep) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             const parametros = [
                 cliente.cpf,
@@ -21,12 +21,18 @@ export default class ClienteDAO{
         }
     }
 
-    async excluir(cliente){
-
+    async excluir(cliente) {
+        if (cliente instanceof Cliente) {
+            const sql = "DELETE FROM cliente WHERE cpf = ?";
+            const parametros = [cliente.cpf];
+            const conexao = await conectar();
+            await conexao.execute(sql, parametros);
+            global.poolConexoes.releaseConnection(conexao);
+        }
     }
 
-    async atualizar(cliente){
-        if(cliente instanceof Cliente){
+    async atualizar(cliente) {
+        if (cliente instanceof Cliente) {
             const sql = "UPDATE cliente SET nome = ?, endereco = ?, numero = ?, bairro = ?, cidade = ?, uf = ?, cep = ? WHERE cpf = ?";
             const parametros = [
                 cliente.nome,
@@ -45,8 +51,8 @@ export default class ClienteDAO{
         }
     }
 
-    async buscarCPF(cpf){
-        if(cpf != null){
+    async buscarCPF(cpf) {
+        if (cpf != null) {
             const sql = "SELECT * FROM cliente WHERE cpf = ?";
             const parametros = [cpf];
             const conexao = await conectar();
@@ -55,7 +61,7 @@ export default class ClienteDAO{
 
             const lista = [];
 
-            for(const linha of rows){
+            for (const linha of rows) {
                 const cliente = new Cliente(cpf, linha['nome'], linha['endereco'], linha['numero'], linha['bairro'], linha['cidade'], linha['uf'], linha['cep']);
 
                 lista.push(cliente);
@@ -64,7 +70,19 @@ export default class ClienteDAO{
         }
     }
 
-    async buscar(){
+    async buscarPeloNome(nome) {
+        if (nome) {
+            const sql = "SELECT * FROM cliente WHERE nome like ?";
+            const parametros = ['%' + nome + '%'];
 
+            const conexao = await conectar();
+            const [rows] = await conexao.execute(sql, parametros);
+            let lista = [];
+            for (const linha of rows) {
+                const cliente = new Cliente(linha.cpf, linha.nomeCliente, linha.endereco, linha.numero, linha.bairro, linha.cidade, linha.uf, linha.cep);
+                lista.push(cliente);
+            }
+            return lista;
+        }
     }
 }

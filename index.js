@@ -16,6 +16,7 @@ app.use(express.json());
 app.use("/categoria", rotaCateogoria);
 app.use("/produto", rotaProduto);
 app.use("/cliente", rotaCliente);
+app.use("/fornecedor", rotaFornecedor);
 
 app.listen(3000, "localhost",  () => {
     console.log("Servidor escutando em localhost : " + 3000);

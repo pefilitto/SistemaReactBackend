@@ -127,7 +127,8 @@ export default class Cliente{
     }
 
     async excluir(){
-
+        const cliente = new ClienteDAO();
+        await cliente.excluir(this);
     }
 
     async atualizar(){
@@ -140,7 +141,8 @@ export default class Cliente{
         return await cliente.buscarCPF(cpf);
     }
     
-    async buscar(){
-
+    async buscarPeloNome(nome){
+        const cliente = new ClienteDAO();
+        return await cliente.buscarPeloNome(nome);
     }
 }
