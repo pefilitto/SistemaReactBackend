@@ -21,4 +21,50 @@ export default class ClienteDAO{
         }
     }
 
+    async excluir(cliente){
+
+    }
+
+    async atualizar(cliente){
+        if(cliente instanceof Cliente){
+            const sql = "UPDATE cliente SET nome = ?, endereco = ?, numero = ?, bairro = ?, cidade = ?, uf = ?, cep = ? WHERE cpf = ?";
+            const parametros = [
+                cliente.nome,
+                cliente.endereco,
+                cliente.numero,
+                cliente.bairro,
+                cliente.cidade,
+                cliente.uf,
+                cliente.cep,
+                cliente.cpf
+            ];
+
+            const conexao = await conectar();
+            await conexao.execute(sql, parametros);
+            global.poolConexoes.releaseConnection(conexao);
+        }
+    }
+
+    async buscarCPF(cpf){
+        if(cpf != null){
+            const sql = "SELECT * FROM cliente WHERE cpf = ?";
+            const parametros = [cpf];
+            const conexao = await conectar();
+            const [rows] = await conexao.execute(sql, parametros);
+            global.poolConexoes.releaseConnection(conexao);
+
+            const lista = [];
+
+            for(const linha of rows){
+                const cliente = new Cliente(cpf, linha['nome'], linha['endereco'], linha['numero'], linha['bairro'], linha['cidade'], linha['uf'], linha['cep']);
+
+                lista.push(cliente);
+            }
+            return lista;
+        }
+    }
+
+    async buscar(){
+
+    }
 }

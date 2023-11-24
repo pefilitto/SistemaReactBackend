@@ -1,12 +1,12 @@
-CREATE DATABASE gestaocomercialLP2;
+CREATE DATABASE gestaocomercialbackend;
 
-USE gestaocomercialLP2;
+USE gestaocomercialbackend;
 
 CREATE TABLE categoria(
     codigoCategoria INT NOT NULL AUTO_INCREMENT,
     categoria VARCHAR(50) NOT NULL,
     tamanho VARCHAR(1) NOT NULL,
-    CONSTRAINT pk_categoria PRIMARY KEY (codigoCategoria),
+    CONSTRAINT pk_categoria PRIMARY KEY (codigoCategoria)
 );
 
 CREATE TABLE produto(

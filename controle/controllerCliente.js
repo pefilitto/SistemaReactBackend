@@ -50,7 +50,57 @@ export default class ControllerCliente{
     }
 
     atualizar(req, res){
+        res.type("application/json");
 
+        if(req.method === "PATCH" && req.is("application/json")){
+            const cpf = req.params.cpf;
+
+            const novosDados = req.body;
+            const nome = novosDados.nome;
+            const endereco = novosDados.endereco;
+            const numero = novosDados.numero;
+            const bairro = novosDados.bairro;
+            const cidade = novosDados.cidade;
+            const uf = novosDados.uf;
+            const cep = novosDados.cep;
+
+            if(nome && endereco && numero && bairro && cidade && uf && cep){
+                const cliente = new Cliente(cpf, nome, endereco, numero, bairro, cidade, uf, cep);
+            
+                cliente.buscarCPF(cpf).then((retorno) => {
+                    if(retorno.length > 0){
+                        cliente.atualizar().then(() => {
+                            res.status(200).json({
+                                "status": true,
+                                "mensagem": "Cliente atualizado com sucesso"
+                            })
+                        }).catch((e) => {
+                            res.status(500).json({
+                                "status": false,
+                                "mensagem": "Erro ao atualizar cliente: " + e.message
+                            })
+                        })
+                    }
+                    else{
+                        res.status(400).json({
+                            "status": false,
+                            "mensagem": "Cliente para atualizar não encontrado"
+                        })
+                    }
+                }).catch((e) => {
+                    res.status(500).json({
+                        "status": false,
+                        "mensagem": "Erro ao buscar cliente: " + e.message
+                    })
+                })
+            }   
+            else{
+                res.status(400).json({
+                    "status": false,
+                    "mensagem": "Informe todos os campos para atualizar"
+                })
+            }
+        }
     }
 
     excluir(req, res){

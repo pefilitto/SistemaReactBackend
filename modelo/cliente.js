@@ -131,11 +131,13 @@ export default class Cliente{
     }
 
     async atualizar(){
-
+        const cliente = new ClienteDAO();
+        await cliente.atualizar(this);
     }
 
-    async buscarCPF(){
-
+    async buscarCPF(cpf){
+        const cliente = new ClienteDAO();
+        return await cliente.buscarCPF(cpf);
     }
     
     async buscar(){
