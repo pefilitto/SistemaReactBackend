@@ -185,8 +185,6 @@ export default class ControllerCliente{
         res.type("application/json");
     
         if (req.method === "GET") {
-            let parametro = "";
-
             const { nome } = req.query; 
     
             const cliente = new Cliente(nome); 

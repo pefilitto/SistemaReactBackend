@@ -9,6 +9,6 @@ rotaCliente.post("/", clienteCtrl.gravar);
 rotaCliente.delete("/:cpf", clienteCtrl.excluir);
 rotaCliente.patch("/:cpf", clienteCtrl.atualizar);
 rotaCliente.get("/:cpf", clienteCtrl.buscarCPF);
-rotaCliente.get("/", clienteCtrl.buscarPeloNome)
+rotaCliente.get("/", clienteCtrl.buscarPeloNome);
 
 export default rotaCliente;

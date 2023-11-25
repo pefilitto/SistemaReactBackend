@@ -16,7 +16,8 @@ export default class ClienteDAO {
                 cliente.cep
             ];
             const conexao = await conectar();
-            await conexao.execute(sql, parametros);
+            const retorno = await conexao.execute(sql, parametros);
+            cliente.codigo = retorno[0].insertId;
             global.poolConexoes.releaseConnection(conexao);
         }
     }

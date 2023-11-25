@@ -3,6 +3,7 @@ import cors from "cors"
 import rotaCateogoria from "./rotas/rotaCategoria.js";
 import rotaProduto from "./rotas/rotaProduto.js";
 import rotaCliente from "./rotas/rotaCliente.js";
+import rotaFornecedor from "./rotas/rotaFornecedor.js";
 
 
 const app = express()

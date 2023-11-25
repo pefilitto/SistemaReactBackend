@@ -15,9 +15,11 @@ CREATE TABLE produto(
     preco FLOAT NOT NULL,
     qtdEstoque INT NOT NULL,
     codigoCategoria INT NOT NULL,
+    codigoFornecedor INT NOT NULL,
     descricao VARCHAR(200),
     CONSTRAINT pk_produto PRIMARY KEY (codigoProduto),
-    CONSTRAINT fk_produto_categoria FOREIGN KEY (codigoCategoria) REFERENCES categoria(codigoCategoria)
+    CONSTRAINT fk_produto_categoria FOREIGN KEY (codigoCategoria) REFERENCES categoria(codigoCategoria),
+    CONSTRAINT fk_produto_fornecedor FOREIGN KEY (codigoFornecedor) REFERENCES fornecedor(codigoFornecedor)
 )
 
 CREATE TABLE cliente(
@@ -31,7 +33,22 @@ CREATE TABLE cliente(
     uf VARCHAR(3) NOT NULL,
     cep VARCHAR(20) NOT NULL,
     CONSTRAINT pk_cliente PRIMARY KEY (codigoCliente)
-)
+);
 
+CREATE TABLE fornecedor(
+    codigoFornecedor INT NOT NULL AUTO_INCREMENT,
+    cnpj VARCHAR(100) NOT NULL,
+    nomeEmpresa VARCHAR(100) NOT NULL,
+    endereco VARCHAR(100) NOT NULL,
+    numero INT NOT NULL,
+    cidade VARCHAR(100) NOT NULL,
+    cep VARCHAR(100) NOT NULL,
+    CONSTRAINT pk_fornecedor PRIMARY KEY (codigoFornecedor)
+);
+
+ALTER TABLE produto 
+	ADD CONSTRAINT fk_produto_fornecedor 
+		FOREIGN KEY (codigoFornecedor) 
+			REFERENCES fornecedor(codigoFornecedor);
 
 

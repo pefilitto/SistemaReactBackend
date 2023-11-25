@@ -6,9 +6,9 @@ const rotaFornecedor = new Router();
 const fornecedorCtrl = new ControllerFornecedor();
 
 rotaFornecedor.post("/", fornecedorCtrl.gravar);
-rotaFornecedor.delete("/:cnpj", fornecedorCtrl.excluir);
-rotaFornecedor.patch("/:cnpj", fornecedorCtrl.atualizar);
-rotaFornecedor.get("/:cnpj", fornecedorCtrl.buscarCPF);
-rotaFornecedor.get("/", fornecedorCtrl.buscarPeloNome)
+//rotaFornecedor.delete("/:cnpj", fornecedorCtrl.excluir);
+//rotaFornecedor.patch("/:cnpj", fornecedorCtrl.atualizar);
+//rotaFornecedor.get("/:cnpj", fornecedorCtrl.buscarCPF);
+//rotaFornecedor.get("/", fornecedorCtrl.buscarPeloNome)
 
 export default rotaFornecedor;
