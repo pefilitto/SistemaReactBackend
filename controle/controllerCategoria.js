@@ -30,7 +30,7 @@ export default class ControllerCategoria {
                     else {
                         res.status(400).json({
                             "status": false,
-                            "mensagem": "Categoria já existente"
+                            "mensagem": "Categoria já cadastrada"
                         })
                     }
                 })

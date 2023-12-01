@@ -19,4 +19,47 @@ export default class FornecedorDAO{
             global.poolConexoes.releaseConnection(conexao);
         }
     }
+
+    async atualizar(fornecedor){
+        if(fornecedor instanceof Fornecedor){
+            const sql = "UPDATE fornecedor SET nomeEmpresa = ?, endereco = ?, numero = ?, cidade = ?, cep = ? WHERE cnpj = ?"
+            const parametros = [
+                fornecedor.nomeEmpresa,
+                fornecedor.endereco,
+                fornecedor.numero,
+                fornecedor.cidade,
+                fornecedor.cep,
+                fornecedor.cnpj
+            ];
+            const conexao = await conectar();
+            await conexao.execute(sql, parametros);
+            global.poolConexoes.releaseConnection(conexao);
+        }
+    }
+
+    async buscar(cnpj){
+        if(cnpj != null){
+            const sql = "SELECT * FROM fornecedor WHERE cnpj = ?";
+            const parametros = [cnpj];
+            const conexao = await conectar();
+            const [rows] = await conexao.execute(sql, parametros);
+
+            let lista = [];
+            for(const linha of rows){
+                const fornecedor = new Fornecedor(linha['cnpj'], linha['nomeEmpresa'], linha['endereco'], linha['numero'], linha['cidade'], linha['cep']);
+                lista.push(fornecedor);
+            }
+            return lista;
+        }
+    }
+
+    async excluir(fornecedor){
+        if(fornecedor instanceof Fornecedor){
+            const sql = "DELETE FROM fornecedor WHERE cnpj = ?";
+            const parametros = [fornecedor.cnpj];
+            const conexao = await conectar();
+            await conexao.execute(sql, parametros);
+            global.poolConexoes.releaseConnection(conexao);
+        }
+    }
 }

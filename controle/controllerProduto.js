@@ -33,7 +33,7 @@ export default class ControllerProduto{
                     else{
                         res.status(404).json({
                             "status": false,
-                            "mensagem": "Produto ja inserido!"
+                            "mensagem": "Produto ja cadastrado!"
                         })
                     }
                 })

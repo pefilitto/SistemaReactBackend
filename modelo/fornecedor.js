@@ -101,4 +101,19 @@ export default class Fornecedor{
         const fornecedor = new FornecedorDAO();
         await fornecedor.gravar(this);
     }
+
+    async atualizar(){
+        const fornecedor = new FornecedorDAO();
+        await fornecedor.atualizar(this);
+    }
+
+    async buscar(cnpj){
+        const fornecedor = new FornecedorDAO();
+        return await fornecedor.buscar(cnpj);
+    }
+
+    async excluir(){
+        const fornecedor = new FornecedorDAO();
+        await fornecedor.excluir(this);
+    }
 }
