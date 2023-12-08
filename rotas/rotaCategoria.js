@@ -1,14 +1,14 @@
 import { Router } from "express";
 import ControllerCategoria from "../controle/controllerCategoria.js";
 
-const rotaCateogoria = new Router();
+const rotaCategoria = new Router();
 
 const rotaCtrl = new ControllerCategoria();
 
-rotaCateogoria.get("/:codigoCategoria", rotaCtrl.buscar);
-rotaCateogoria.get("/", rotaCtrl.buscar);
-rotaCateogoria.post("/", rotaCtrl.gravar);
-rotaCateogoria.patch("/:codigoCategoria", rotaCtrl.atualizar);
-rotaCateogoria.delete("/:codigoCategoria", rotaCtrl.excluir);
+rotaCategoria.get("/:codigoCategoria", rotaCtrl.buscar);
+rotaCategoria.get("/", rotaCtrl.buscar);
+rotaCategoria.post("/", rotaCtrl.gravar);
+rotaCategoria.patch("/:codigoCategoria", rotaCtrl.atualizar);
+rotaCategoria.delete("/:codigoCategoria", rotaCtrl.excluir);
 
-export default rotaCateogoria;
+export default rotaCategoria;

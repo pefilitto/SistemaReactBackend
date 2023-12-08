@@ -1,6 +1,6 @@
 import express  from "express"
 import cors from "cors"
-import rotaCateogoria from "./rotas/rotaCategoria.js";
+import rotaCategoria from "./rotas/rotaCategoria.js";
 import rotaProduto from "./rotas/rotaProduto.js";
 import rotaCliente from "./rotas/rotaCliente.js";
 import rotaFornecedor from "./rotas/rotaFornecedor.js";
@@ -13,7 +13,7 @@ app.use(express.urlencoded({extended:true}));
 
 app.use(express.json());
 
-app.use("/categoria", rotaCateogoria);
+app.use("/categoria", rotaCategoria);
 app.use("/produto", rotaProduto);
 app.use("/cliente", rotaCliente);
 app.use("/fornecedor", rotaFornecedor);

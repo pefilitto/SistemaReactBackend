@@ -12,7 +12,7 @@ export default class ControllerCategoria {
             if (tipoProduto && tamanho) {
                 const categoria = new Categoria(0, tipoProduto, tamanho);
 
-                categoria.buscar(tipoProduto).then((listaCategorias) => {
+                categoria.buscar(tipoProduto, tamanho).then((listaCategorias) => {
                     if (listaCategorias.length == 0) {
                         categoria.gravar().then(() => {
                             res.status(200).json({
@@ -58,29 +58,19 @@ export default class ControllerCategoria {
             if (codigoCategoria) {
                 const categoria = new Categoria(codigoCategoria);
 
-                categoria.buscar(codigoCategoria).then((listaCategoria) => {
-                    console.log(listaCategoria)
-                    if (listaCategoria.length == 0) {
-                        res.status(404).json({
-                            "status": false,
-                            "mensagem": "Categoria para excluir não encontrada!"
-                        });
-                    }
-                    else {
-                        categoria.excluir(codigoCategoria).then(() => {
-                            res.status(200).json({
-                                "status": true,
-                                "mensagem": "Categoria excluída com sucesso"
-                            });
-                        }).catch((e) => {
-                            res.status(500).json({
-                                "status": false,
-                                "mensagem": "Erro ao excluir categoria: " + e.message
-                            });
-                        });
-                    }
-                })
-            } else {
+                categoria.excluir(codigoCategoria).then(() => {
+                    res.status(200).json({
+                        "status": true,
+                        "mensagem": "Categoria excluída com sucesso"
+                    });
+                }).catch((e) => {
+                    res.status(500).json({
+                        "status": false,
+                        "mensagem": "Erro ao excluir categoria: " + e.message
+                    });
+                });
+            } 
+            else {
                 res.status(400).json({
                     "status": false,
                     "mensagem": "Por gentileza, informe o código da categoria a ser excluída na URL"
@@ -107,7 +97,7 @@ export default class ControllerCategoria {
             if (codigoCategoria && tipoProduto && tamanho) {
                 const categoria = new Categoria(codigoCategoria, tipoProduto, tamanho);
 
-                categoria.buscar(codigoCategoria).then((listaCategoria) => {
+                categoria.buscar(codigoCategoria, 0).then((listaCategoria) => {
                     if(listaCategoria.length == 0){
                         res.status(404).json({
                             "status": false,
@@ -142,7 +132,6 @@ export default class ControllerCategoria {
         }
     }
 
-
     buscar(req, res) {
         res.type("application/json");
         if (req.method === "GET") {
@@ -159,11 +148,11 @@ export default class ControllerCategoria {
             }
 
             const categoria = new Categoria(parametro)
-            categoria.buscar(parametro).then((categoria) => {
+            categoria.buscar(parametro, 0).then((categoria) => {
                 if (categoria) {
                     res.status(200).json({
                         "status": true,
-                        "categoria": categoria
+                        "categoria": categoria,
                     });
                 } else {
                     res.status(404).json({

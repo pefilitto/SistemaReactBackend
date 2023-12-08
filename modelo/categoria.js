@@ -62,8 +62,8 @@ export default class Categoria{
         await categoria.alterar(this);
     }
 
-    async buscar(termo){
+    async buscar(termo, tamanho){
         const categoria = new CategoriaDAO();
-        return await categoria.buscar(termo);
+        return await categoria.buscar(termo, tamanho);
     }
 }
