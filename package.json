@@ -1,0 +1,27 @@
+{
+  "name": "sistemareactbackend",
+  "version": "1.0.0",
+  "description": "Gestao Comercial Backend",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js && NODE_OPTIONS=--no-deprecation",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pefilitto/SistemaReactBackend.git"
+  },
+  "author": "Pedro Filitto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pefilitto/SistemaReactBackend/issues"
+  },
+  "homepage": "https://github.com/pefilitto/SistemaReactBackend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mysql2": "^3.6.3",
+    "nodemon": "^3.0.1"
+  }
+}
