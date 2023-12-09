@@ -9,5 +9,6 @@ rotaFornecedor.post("/", fornecedorCtrl.gravar);
 rotaFornecedor.delete("/:cnpj", fornecedorCtrl.excluir);
 rotaFornecedor.patch("/:cnpj", fornecedorCtrl.atualizar);
 rotaFornecedor.get("/:cnpj", fornecedorCtrl.buscarCNPJ);
+rotaFornecedor.get("/", fornecedorCtrl.buscarCNPJ);
 
 export default rotaFornecedor;

@@ -7,7 +7,7 @@ export default class ControllerFornecedor{
             const dados = req.body;
 
             const cnpj = dados.cnpj;
-            const nomeEmpresa = dados.nomeEmpresa;
+            const nomeEmpresa = dados.nome;
             const endereco = dados.endereco;
             const numero = dados.numero;
             const cidade = dados.cidade;
@@ -140,7 +140,7 @@ export default class ControllerFornecedor{
         if(req.method === "GET"){
             const cnpj = req.params.cnpj;
     
-            if(cnpj){
+            if(cnpj || !cnpj){
                 const fornecedor = new Fornecedor(cnpj);
     
                 fornecedor.buscar(cnpj).then((listaFornecedor) => {

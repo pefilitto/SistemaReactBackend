@@ -34,7 +34,7 @@ export default class ClienteDAO {
 
     async atualizar(cliente) {
         if (cliente instanceof Cliente) {
-            const sql = "UPDATE cliente SET nome = ?, endereco = ?, numero = ?, bairro = ?, cidade = ?, uf = ?, cep = ? WHERE codigoCliente = ?";
+            const sql = "UPDATE cliente SET nome = ?, endereco = ?, numero = ?, bairro = ?, cidade = ?, uf = ?, cep = ? WHERE cpf = ?";
             const parametros = [
                 cliente.nome,
                 cliente.endereco,
@@ -43,7 +43,7 @@ export default class ClienteDAO {
                 cliente.cidade,
                 cliente.uf,
                 cliente.cep,
-                cliente.codigo
+                cliente.cpf
             ];
 
             const conexao = await conectar();
@@ -53,37 +53,48 @@ export default class ClienteDAO {
     }
 
     async buscarCPF(cpf) {
-        if (cpf != null) {
-            const sql = "SELECT * FROM cliente WHERE cpf = ?";
-            const parametros = [cpf];
-            const conexao = await conectar();
-            const [rows] = await conexao.execute(sql, parametros);
-            global.poolConexoes.releaseConnection(conexao);
-
-            const lista = [];
-
-            for (const linha of rows) {
-                const cliente = new Cliente(cpf, linha['nome'], linha['endereco'], linha['numero'], linha['bairro'], linha['cidade'], linha['uf'], linha['cep']);
-
-                lista.push(cliente);
-            }
-            return lista;
+        let sql = "";
+        let parametros = [];
+        if (cpf == null) {
+            sql = "SELECT * FROM cliente"
         }
+        else {
+            sql = "SELECT * FROM cliente WHERE cpf = ?";
+            parametros = [cpf];
+        }
+
+
+        const conexao = await conectar();
+        const [rows] = await conexao.execute(sql, parametros);
+        const lista = [];
+
+        for (const linha of rows) {
+            const cliente = new Cliente(linha['cpf'], linha['nome'], linha['endereco'], linha['numero'], linha['bairro'], linha['cidade'], linha['uf'], linha['cep']);
+
+            lista.push(cliente);
+        }
+        return lista;
+
     }
 
     async buscarPeloNome(nome) {
-        if (nome) {
-            const sql = "SELECT * FROM cliente WHERE nome like ?";
-            const parametros = ['%' + nome + '%'];
+        let sql = "";
+        let parametros = [];
 
-            const conexao = await conectar();
-            const [rows] = await conexao.execute(sql, parametros);
-            let lista = [];
-            for (const linha of rows) {
-                const cliente = new Cliente(linha.cpf, linha.nomeCliente, linha.endereco, linha.numero, linha.bairro, linha.cidade, linha.uf, linha.cep);
-                lista.push(cliente);
-            }
-            return lista;
+        if (!nome) {
+            sql = "SELECT * FROM cliente"
         }
+        else {
+            sql = "SELECT * FROM cliente WHERE nome like ?";
+            parametros = ['%' + nome + '%'];
+        }
+        const conexao = await conectar();
+        const [rows] = await conexao.execute(sql, parametros);
+        let lista = [];
+        for (const linha of rows) {
+            const cliente = new Cliente(linha.cpf, linha.nome, linha.endereco, linha.numero, linha.bairro, linha.cidade, linha.uf, linha.cep);
+            lista.push(cliente);
+        }
+        return lista;
     }
 }

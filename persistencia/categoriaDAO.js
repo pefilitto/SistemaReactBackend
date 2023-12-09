@@ -24,7 +24,6 @@ export default class CategoriaDAO{
     }
 
     async excluir(categoria, codigoCategoria){
-        console.log(categoria, codigoCategoria)
         if(categoria instanceof Categoria){
             const sql = "DELETE FROM categoria WHERE codigoCategoria = ?"
             const parametros = [codigoCategoria];
@@ -61,7 +60,7 @@ export default class CategoriaDAO{
         const [linhas] = await conexao.execute(sql, parametros);
         let listaCategoria = [];
         for(const lines of linhas){
-            const categoria = new Categoria(lines['codigoCategoria'], lines['categoria'], lines['tamanho']);
+            const categoria = new Categoria(lines.codigoCategoria, lines.categoria, lines.tamanho);
             listaCategoria.push(categoria);
         }
         return listaCategoria;

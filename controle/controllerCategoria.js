@@ -54,7 +54,6 @@ export default class ControllerCategoria {
         res.type("application/json");
         if (req.method === "DELETE") {
             const codigoCategoria = req.params.codigoCategoria; // Suponha que o código da categoria a ser excluída seja passado como parâmetro na URL.
-
             if (codigoCategoria) {
                 const categoria = new Categoria(codigoCategoria);
 
@@ -69,7 +68,7 @@ export default class ControllerCategoria {
                         "mensagem": "Erro ao excluir categoria: " + e.message
                     });
                 });
-            } 
+            }
             else {
                 res.status(400).json({
                     "status": false,
@@ -97,83 +96,69 @@ export default class ControllerCategoria {
             if (codigoCategoria && tipoProduto && tamanho) {
                 const categoria = new Categoria(codigoCategoria, tipoProduto, tamanho);
 
-                categoria.buscar(codigoCategoria, 0).then((listaCategoria) => {
-                    if(listaCategoria.length == 0){
-                        res.status(404).json({
-                            "status": false,
-                            "mensagem": "Categoria para atualizar não encontrada"
-                        })
-                    }
-                    else{
-                        categoria.alterar().then(() => {
-                            res.status(200).json({
-                                "status": true,
-                                "mensagem": "Categoria atualizada com sucesso"
-                            });
-                        }).catch((e) => {
-                            res.status(500).json({
-                                "status": false,
-                                "mensagem": "Erro ao atualizar categoria: " + e.message
-                            });
-                        });
-                    }
-                })
-            } else {
-                res.status(400).json({
-                    "status": false,
-                    "mensagem": "Por gentileza, informe o código da categoria a ser atualizada na URL e forneça os novos dados no corpo da requisição"
-                });
-            }
-        } else {
-            res.status(400).json({
-                "status": false,
-                "mensagem": "Por gentileza, utilize o método PUT para atualizar uma categoria"
-            });
-        }
-    }
-
-    buscar(req, res) {
-        res.type("application/json");
-        if (req.method === "GET") {
-            let parametro = "";
-            const { codigoCategoria } = req.params;
-            const { descricao } = req.query; // Suponha que o código da categoria a ser buscada seja passado como parâmetro na URL.
-
-            if (codigoCategoria) {
-                parametro = codigoCategoria;
-            }
-
-            if (descricao) {
-                parametro = descricao;
-            }
-
-            const categoria = new Categoria(parametro)
-            categoria.buscar(parametro, 0).then((categoria) => {
-                if (categoria) {
+                categoria.alterar().then(() => {
                     res.status(200).json({
                         "status": true,
-                        "categoria": categoria,
+                        "mensagem": "Categoria atualizada com sucesso"
                     });
-                } else {
-                    res.status(404).json({
-                        "status": false,
-                        "mensagem": "Categoria não encontrada"
-                    });
-                }
-            })
-                .catch((e) => {
+                }).catch((e) => {
                     res.status(500).json({
                         "status": false,
-                        "mensagem": "Erro ao buscar categoria: " + e.message
+                        "mensagem": "Erro ao atualizar categoria: " + e.message
                     });
                 });
-
-        } else {
+            }
+        }
+        else {
             res.status(400).json({
                 "status": false,
-                "mensagem": "Por gentileza, utilize o método GET para buscar uma categoria"
+                "mensagem": "Por gentileza, informe o código da categoria a ser atualizada na URL e forneça os novos dados no corpo da requisição"
             });
         }
     }
+
+buscar(req, res) {
+    res.type("application/json");
+    if (req.method === "GET") {
+        let parametro = "";
+        const { codigoCategoria } = req.params;
+        const { descricao } = req.query; // Suponha que o código da categoria a ser buscada seja passado como parâmetro na URL.
+
+        if (codigoCategoria) {
+            parametro = codigoCategoria;
+        }
+
+        if (descricao) {
+            parametro = descricao;
+        }
+
+        const categoria = new Categoria(parametro)
+        categoria.buscar(parametro, 0).then((categoria) => {
+            if (categoria) {
+                res.status(200).json({
+                    "status": true,
+                    "categoria": categoria
+                });
+            } else {
+                res.status(404).json({
+                    "status": false,
+                    "mensagem": "Categoria não encontrada"
+                });
+            }
+        })
+            .catch((e) => {
+                res.status(500).json({
+                    "status": false,
+                    "mensagem": "Erro ao buscar categoria: " + e.message
+                });
+            });
+
+    } else {
+        res.status(400).json({
+            "status": false,
+            "mensagem": "Por gentileza, utilize o método GET para buscar uma categoria"
+        });
+    }
+}
 
 }

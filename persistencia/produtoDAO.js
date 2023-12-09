@@ -59,11 +59,15 @@ export default class ProdutoDAO{
             parametros = [termo];
         }
 
+        if(!termo){
+            sql = "SELECT * FROM produto"
+        }
+
         const conexao = await conectar();
-        const [linhas, colunas] = await conexao.execute(sql, parametros);
+        const [linhas] = await conexao.execute(sql, parametros);
         let listaProdutos = [];
         for(const lines of linhas){
-            const produto = new Produto(lines.codigo, lines.nome, lines.preco, lines.qtdEstoque, lines.codigoCategoria, lines.descricao);
+            const produto = new Produto(lines.codigoProduto, lines.nome, lines.preco, lines.qtdEstoque, lines.codigoCategoria, lines.descricao);
             listaProdutos.push(produto);
         };
         return listaProdutos;

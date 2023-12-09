@@ -154,24 +154,26 @@ export default class ControllerCliente{
     
             const cliente = new Cliente(cpf);
     
-            cliente.buscarCPF(cpf).then((retorno) => {
-                if(retorno.length > 0){
-                    res.status(200).json({
-                        "status": true,
-                        "cliente": retorno
-                    });
-                } else {
-                    res.status(404).json({
+            if(cpf || !cpf){
+                cliente.buscarCPF(cpf).then((retorno) => {
+                    if(retorno.length){
+                        res.status(200).json({
+                            "status": true,
+                            "cliente": retorno
+                        });
+                    } else {
+                        res.status(404).json({
+                            "status": false,
+                            "mensagem": "Cliente não encontrado"
+                        });
+                    }
+                }).catch((e) => {
+                    res.status(500).json({
                         "status": false,
-                        "mensagem": "Cliente não encontrado"
+                        "mensagem": "Erro ao buscar cliente: " + e.message
                     });
-                }
-            }).catch((e) => {
-                res.status(500).json({
-                    "status": false,
-                    "mensagem": "Erro ao buscar cliente: " + e.message
                 });
-            });
+            }
         } else {
             res.status(400).json({
                 "status": false,
@@ -189,25 +191,26 @@ export default class ControllerCliente{
     
             const cliente = new Cliente(nome); 
     
-            cliente.buscarPeloNome(nome).then((clienteEncontrado) => {
-                if (clienteEncontrado.length > 0) {
-                    res.status(200).json({
-                        "status": true,
-                        "cliente": clienteEncontrado
-                    });
-                } else {
-                    res.status(404).json({
+            if(nome || !nome){
+                cliente.buscarPeloNome(nome).then((clienteEncontrado) => {
+                    if (clienteEncontrado.length > 0) {
+                        res.status(200).json({
+                            "status": true,
+                            "cliente": clienteEncontrado
+                        });
+                    } else {
+                        res.status(404).json({
+                            "status": false,
+                            "mensagem": "Cliente não encontrado"
+                        });
+                    }
+                }).catch((e) => {
+                    res.status(500).json({
                         "status": false,
-                        "mensagem": "Cliente não encontrado"
+                        "mensagem": "Erro ao buscar cliente: " + e.message
                     });
-                }
-            }).catch((e) => {
-                res.status(500).json({
-                    "status": false,
-                    "mensagem": "Erro ao buscar cliente: " + e.message
                 });
-            });
-    
+            }
         } else {
             res.status(400).json({
                 "status": false,

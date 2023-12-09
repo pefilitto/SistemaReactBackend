@@ -37,13 +37,14 @@ export default class Categoria{
 
     toJSON(){
         return{
+            codigo: this.#codigo,
             tipoProduto: this.#tipoProduto,
             tamanho: this.#tamanho
         }
     }
 
     toString(){
-        return "tipoProduto" + this.#tipoProduto + '\n' + 
+        return "codigo" + this.#codigo + '\n' + "tipoProduto" + this.#tipoProduto + '\n' + 
                 "tamanho " + this.#tamanho;
     }
 
