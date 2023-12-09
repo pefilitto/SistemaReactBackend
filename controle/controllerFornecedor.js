@@ -7,7 +7,7 @@ export default class ControllerFornecedor{
             const dados = req.body;
 
             const cnpj = dados.cnpj;
-            const nomeEmpresa = dados.nome;
+            const nomeEmpresa = dados.nomeEmpresa;
             const endereco = dados.endereco;
             const numero = dados.numero;
             const cidade = dados.cidade;
@@ -152,7 +152,7 @@ export default class ControllerFornecedor{
                     } else {
                         res.status(404).json({
                             "status": false,
-                            "mensagem": "Fornecedor com o CNPJ informado não encontrado!"
+                            "mensagem": "Fornecedor com o CNPJ informado não encontrado!",
                         });
                     }
                 }).catch((e) => {

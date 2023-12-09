@@ -85,7 +85,7 @@ atualizar(req, res){
         const nome = novosDados.nome;
         const preco = novosDados.preco;
         const qtdEstoque = novosDados.qtdEstoque;
-        const codigoCategoria = novosDados.codigoCategoria;
+        const codigoCategoria = novosDados.categoria;
         const descricao = novosDados.descricao;
 
         if (codigoProduto && nome && preco && qtdEstoque && codigoCategoria && descricao) {

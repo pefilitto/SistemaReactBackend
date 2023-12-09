@@ -73,8 +73,8 @@ export default class ClienteDAO {
 
             lista.push(cliente);
         }
+        global.poolConexoes.releaseConnection(conexao);
         return lista;
-
     }
 
     async buscarPeloNome(nome) {
@@ -95,6 +95,7 @@ export default class ClienteDAO {
             const cliente = new Cliente(linha.cpf, linha.nome, linha.endereco, linha.numero, linha.bairro, linha.cidade, linha.uf, linha.cep);
             lista.push(cliente);
         }
+        global.poolConexoes.releaseConnection(conexao);
         return lista;
     }
 }

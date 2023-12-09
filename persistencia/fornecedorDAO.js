@@ -40,7 +40,7 @@ export default class FornecedorDAO {
     async buscar(cnpj) {
         let sql = "";
         let parametros = [];
-        if (!cnpj) {
+        if (cnpj == null) {
             sql = "SELECT * FROM fornecedor"
         }
         else {
@@ -56,6 +56,7 @@ export default class FornecedorDAO {
             const fornecedor = new Fornecedor(linha['cnpj'], linha['nomeEmpresa'], linha['endereco'], linha['numero'], linha['cidade'], linha['cep']);
             lista.push(fornecedor);
         }
+        global.poolConexoes.releaseConnection(conexao);
         return lista;
     }
 

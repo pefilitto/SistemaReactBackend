@@ -63,6 +63,7 @@ export default class CategoriaDAO{
             const categoria = new Categoria(lines.codigoCategoria, lines.categoria, lines.tamanho);
             listaCategoria.push(categoria);
         }
+        global.poolConexoes.releaseConnection(conexao);
         return listaCategoria;
     }
 }

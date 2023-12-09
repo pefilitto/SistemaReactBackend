@@ -46,9 +46,4 @@ CREATE TABLE fornecedor(
     CONSTRAINT pk_fornecedor PRIMARY KEY (codigoFornecedor)
 );
 
-ALTER TABLE produto 
-	ADD CONSTRAINT fk_produto_fornecedor 
-		FOREIGN KEY (codigoFornecedor) 
-			REFERENCES fornecedor(codigoFornecedor);
-
 

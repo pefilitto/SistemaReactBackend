@@ -70,6 +70,7 @@ export default class ProdutoDAO{
             const produto = new Produto(lines.codigoProduto, lines.nome, lines.preco, lines.qtdEstoque, lines.codigoCategoria, lines.descricao);
             listaProdutos.push(produto);
         };
+        global.poolConexoes.releaseConnection(conexao);
         return listaProdutos;
     }
 }
