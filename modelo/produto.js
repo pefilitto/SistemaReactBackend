@@ -6,14 +6,25 @@ export default class Produto{
     #preco;
     #qtdEstoque;
     #codigoCategoria;
+<<<<<<< HEAD
     #descricao;
 
     constructor(codigo, nome, preco, qtdEstoque, codigoCategoria, descricao){
+=======
+    #codigoFornecedor;
+    #descricao;
+
+    constructor(codigo, nome, preco, qtdEstoque, codigoCategoria, codigoFornecedor, descricao){
+>>>>>>> feat/versao-andre
         this.#codigo = codigo;
         this.#nome = nome;
         this.#preco = preco;
         this.#qtdEstoque = qtdEstoque;
         this.#codigoCategoria = codigoCategoria;
+<<<<<<< HEAD
+=======
+        this.#codigoFornecedor = codigoFornecedor;
+>>>>>>> feat/versao-andre
         this.#descricao = descricao;
     }
 
@@ -25,6 +36,17 @@ export default class Produto{
         this.#codigoCategoria = novoCodigoCategoria;
     }
 
+<<<<<<< HEAD
+=======
+    get codigoFornecedor(){
+        return this.#codigoFornecedor;
+    }
+
+    set codigoFornecedor(novoCodigoFornecedor){
+        this.#codigoFornecedor = novoCodigoFornecedor;
+    }
+
+>>>>>>> feat/versao-andre
     get codigo(){
         return this.#codigo;
     }
@@ -72,6 +94,10 @@ export default class Produto{
             preco: this.#preco,
             qtdEstoque: this.#qtdEstoque,
             codigoCategoria: this.#codigoCategoria,
+<<<<<<< HEAD
+=======
+            codigoFornecedor: this.#codigoFornecedor,
+>>>>>>> feat/versao-andre
             descricao: this.#descricao
         }
     }
@@ -82,6 +108,10 @@ export default class Produto{
                 "preco" + this.#preco + '\n' +
                 "qtdEstoque" + this.#qtdEstoque + '\n' +
                 "codigoCategoria" + this.#codigoCategoria + '\n' +
+<<<<<<< HEAD
+=======
+                "codigoFornecedor" + this.#codigoFornecedor + '\n' +
+>>>>>>> feat/versao-andre
                 "descricao" + this.#descricao
     }
 

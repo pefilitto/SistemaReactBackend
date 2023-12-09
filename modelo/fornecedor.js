@@ -9,7 +9,12 @@ export default class Fornecedor{
     #cidade;
     #cep;
 
+<<<<<<< HEAD
     constructor(cnpj, nomeEmpresa, endereco, numero, cidade, cep){
+=======
+    constructor(codigoFornecedor, cnpj, nomeEmpresa, endereco, numero, cidade, cep){
+        this.#codigoFornecedor = codigoFornecedor;
+>>>>>>> feat/versao-andre
         this.#cnpj = cnpj;
         this.#nomeEmpresa = nomeEmpresa;
         this.#endereco = endereco;

@@ -11,9 +11,16 @@ export default class ControllerProduto {
             const qtdEstoque = dados.qtdEstoque;
             const codigoCategoria = dados.categoria;
             const descricao = dados.descricao;
+<<<<<<< HEAD
 
             if (nome && preco && qtdEstoque && codigoCategoria && descricao) {
                 const produto = new Produto(0, nome, preco, qtdEstoque, codigoCategoria, descricao);
+=======
+            const fornecedor = dados.fornecedor;
+
+            if (nome && preco && qtdEstoque && codigoCategoria && descricao) {
+                const produto = new Produto(0, nome, preco, qtdEstoque, codigoCategoria, fornecedor, descricao);
+>>>>>>> feat/versao-andre
                 produto.gravar().then(() => {
                     res.status(200).json({
                         "status": true,
@@ -86,10 +93,18 @@ atualizar(req, res){
         const preco = novosDados.preco;
         const qtdEstoque = novosDados.qtdEstoque;
         const codigoCategoria = novosDados.categoria;
+<<<<<<< HEAD
         const descricao = novosDados.descricao;
 
         if (codigoProduto && nome && preco && qtdEstoque && codigoCategoria && descricao) {
             const produto = new Produto(codigoProduto, nome, preco, qtdEstoque, codigoCategoria, descricao)
+=======
+        const codigoFornecedor = novosDados.fornecedor
+        const descricao = novosDados.descricao;
+
+        if (codigoProduto && nome && preco && qtdEstoque && codigoCategoria && descricao) {
+            const produto = new Produto(codigoProduto, nome, preco, qtdEstoque, codigoCategoria, codigoFornecedor, descricao)
+>>>>>>> feat/versao-andre
             produto.alterar().then(() => {
                 res.status(200).json({
                     "status": true,

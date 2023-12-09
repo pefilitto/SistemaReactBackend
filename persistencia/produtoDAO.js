@@ -4,13 +4,21 @@ import conectar from "./conexao.js";
 export default class ProdutoDAO{
     async gravar(produto){
         if(produto instanceof Produto){
+<<<<<<< HEAD
             const sql = "INSERT INTO produto (codigoProduto, nome, preco, qtdEstoque, codigoCategoria, descricao) VALUES (?, ?, ?, ?, ?, ?)"
+=======
+            const sql = "INSERT INTO produto (codigoProduto, nome, preco, qtdEstoque, codigoCategoria, codigoFornecedor, descricao) VALUES (?, ?, ?, ?, ?, ?, ?)"
+>>>>>>> feat/versao-andre
             const parametros = [
                 produto.codigo, 
                 produto.nome, 
                 produto.preco, 
                 produto.qtdEstoque, 
                 produto.codigoCategoria,
+<<<<<<< HEAD
+=======
+                produto.codigoFornecedor,
+>>>>>>> feat/versao-andre
                 produto.descricao
             ];
             const conexao = await conectar();
@@ -32,12 +40,20 @@ export default class ProdutoDAO{
 
     async alterar(produto){
         if(produto instanceof Produto){
+<<<<<<< HEAD
             const sql = "UPDATE produto SET nome = ?, preco = ?, qtdEstoque = ?, codigoCategoria = ?, descricao = ? WHERE codigoProduto = ?";
+=======
+            const sql = "UPDATE produto SET nome = ?, preco = ?, qtdEstoque = ?, codigoCategoria = ?, codigoFornecedor = ?, descricao = ? WHERE codigoProduto = ?";
+>>>>>>> feat/versao-andre
             const parametros = [
                 produto.nome,
                 produto.preco,
                 produto.qtdEstoque,
                 produto.codigoCategoria,
+<<<<<<< HEAD
+=======
+                produto.codigoFornecedor,
+>>>>>>> feat/versao-andre
                 produto.descricao,
                 produto.codigo
             ];
@@ -67,7 +83,11 @@ export default class ProdutoDAO{
         const [linhas] = await conexao.execute(sql, parametros);
         let listaProdutos = [];
         for(const lines of linhas){
+<<<<<<< HEAD
             const produto = new Produto(lines.codigoProduto, lines.nome, lines.preco, lines.qtdEstoque, lines.codigoCategoria, lines.descricao);
+=======
+            const produto = new Produto(lines.codigoProduto, lines.nome, lines.preco, lines.qtdEstoque, lines.codigoCategoria, lines.codigoFornecedor,lines.descricao);
+>>>>>>> feat/versao-andre
             listaProdutos.push(produto);
         };
         global.poolConexoes.releaseConnection(conexao);

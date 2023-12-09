@@ -14,7 +14,11 @@ export default class ControllerFornecedor{
             const cep = dados.cep;
 
             if(cnpj && nomeEmpresa && endereco && numero && cidade && cep){
+<<<<<<< HEAD
                 const fornecedor = new Fornecedor(cnpj, nomeEmpresa, endereco, numero, cidade, cep);
+=======
+                const fornecedor = new Fornecedor(0, cnpj, nomeEmpresa, endereco, numero, cidade, cep);
+>>>>>>> feat/versao-andre
 
                 fornecedor.buscar(cnpj).then((listaFornecedor) => {
                     if(listaFornecedor.length > 0){
@@ -62,7 +66,11 @@ export default class ControllerFornecedor{
             const cep = dados.cep;
 
             if(nomeEmpresa, endereco, numero, cidade, cep){
+<<<<<<< HEAD
                 const fornecedor = new Fornecedor(cnpj, nomeEmpresa, endereco, numero, cidade, cep);
+=======
+                const fornecedor = new Fornecedor(0, cnpj, nomeEmpresa, endereco, numero, cidade, cep);
+>>>>>>> feat/versao-andre
                 fornecedor.buscar(cnpj).then((listaFornecedor) => {
                     if(listaFornecedor.length > 0){
                         fornecedor.atualizar().then(() => {
@@ -101,7 +109,11 @@ export default class ControllerFornecedor{
             const cnpj = req.params.cnpj
 
             if(cnpj){
+<<<<<<< HEAD
                 const fornecedor = new Fornecedor(cnpj);
+=======
+                const fornecedor = new Fornecedor(0, cnpj, "", "", 0, "", 0);
+>>>>>>> feat/versao-andre
 
                 fornecedor.buscar(cnpj).then((listaFornecedor) => {
                     if(listaFornecedor.length > 0){

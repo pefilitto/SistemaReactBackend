@@ -53,7 +53,11 @@ export default class FornecedorDAO {
 
         let lista = [];
         for (const linha of rows) {
+<<<<<<< HEAD
             const fornecedor = new Fornecedor(linha['cnpj'], linha['nomeEmpresa'], linha['endereco'], linha['numero'], linha['cidade'], linha['cep']);
+=======
+            const fornecedor = new Fornecedor(linha['codigoFornecedor'], linha['cnpj'], linha['nomeEmpresa'], linha['endereco'], linha['numero'], linha['cidade'], linha['cep']);
+>>>>>>> feat/versao-andre
             lista.push(fornecedor);
         }
         global.poolConexoes.releaseConnection(conexao);
